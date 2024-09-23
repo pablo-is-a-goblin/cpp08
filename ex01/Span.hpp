@@ -14,9 +14,7 @@ public:
 	void	addNumber(int number);
 	int		shortestSpan(void);
 	int		longestSpan(void);
-	void	fillRange(void);
-	void	fillRandom(void);
-	template <typename Iterator>void	insert(Iterator first, Iterator last);
+	void	insert(std::vector<int>::iterator first, std::vector<int>::iterator last);
 
 //	EXEPCTIONS
 	class FilledSpanException : public std::exception {

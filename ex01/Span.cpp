@@ -1,6 +1,72 @@
 #include "Span.hpp"
 
 #include <iostream>
+#include <algorithm>
+#include <limits.h>
+
+//	SPANS
+
+int	Span::shortestSpan(void)
+{
+	if (this->_nums.size() < 2)
+		throw Span::InsufficientNumbersToSpan();
+	
+	std::sort(this->_nums.begin(), this->_nums.end());
+
+	int min = INT_MAX;
+
+	for (unsigned int i = 0; i < this->_nums.size() - 1; i++)
+	{
+		if (this->_nums[i + 1] - this->_nums[i] < min)
+			min = this->_nums[i + 1] - this->_nums[i];
+	}
+	return (min);
+}
+
+int	Span::longestSpan(void)
+{
+	if (this->_nums.size() < 2)
+		throw Span::InsufficientNumbersToSpan();
+
+	std::sort(this->_nums.begin(), this->_nums.end());
+
+	return (*(--this->_nums.end()) - *this->_nums.begin());
+}
+
+//	ADDING NUMBERS
+
+void	Span::addNumber(int number)
+{
+	if (this->_nums.size() == this->N)
+		throw Span::FilledSpanException();
+	this->_nums.push_back(number);
+}
+
+void	Span::insert(std::vector<int>::iterator first, std::vector<int>::iterator last)
+{
+	int new_ins_size = std::abs(std::distance(first, last));
+
+	if (new_ins_size + this->_nums.size() > this->N)
+		throw Span::FilledSpanException();
+	this->_nums.insert(this->_nums.begin(), first, last);
+}
+
+//	EXCEPTIONS
+
+const char	*Span::InsufficientNumbersToSpan::what(void) const throw()
+{
+	return (RED "There are not enough numbers here to calculate a span" NC);
+}
+
+const char	*Span::DifferentSizeSpanAssignment::what(void) const throw()
+{
+	return (RED "Tried to use '=' with Spans of different sizes" NC);
+}
+
+const char	*Span::FilledSpanException::what(void) const throw()
+{
+	return (RED "This object is already filled" NC);
+}
 
 //	Constructor
 
