@@ -10,21 +10,33 @@ class MutantStack : public std::stack<T, Container>
 {
 public:
 //	ITERATORS
-	using std::stack<T, Container>::c;
 
-	typedef std::stack<T, Container>::c::iterator iterator;
+	typedef typename Container::iterator iterator;
+
 	iterator begin(void) {
-		return (std::begin(c));
+		return this->c.begin();
+	};
+
+	iterator end(void) {
+		return this->c.end();
+	};
+
+	iterator rbegin(void) {
+		return this->c.rbegin();
+	};
+
+	iterator rend(void) {
+		return this->c.rend();
 	};
 
 //	OCCF
-	MutantStack(void) : std::stack() {};
-	MutantStack(const MutantStack &other) : std::stack(other) {};
+	MutantStack(void) : std::stack<T, Container>() {};
+	MutantStack(const MutantStack &other) : std::stack<T, Container>(other) {};
 	MutantStack &operator=(const MutantStack &other) {
 		std::stack<T, Container>::operator=(other);
 		return (*this);	
 	};
-	~MutantStack(void) : std::~stack() {};
+	~MutantStack(void) {};
 };
 
 # ifndef COLOR_DEF
