@@ -2,6 +2,9 @@
 # define SPAN_HPP
 
 # include <vector>
+# include <algorithm>
+
+# define BIG_SIZE 20000
 
 class Span
 {
@@ -12,9 +15,17 @@ public:
 	Span(unsigned int size);
 //	FUNCS
 	void	addNumber(int number);
-	int		shortestSpan(void);
-	int		longestSpan(void);
-	void	insert(std::vector<int>::iterator first, std::vector<int>::iterator last);
+	unsigned int		shortestSpan(void);
+	unsigned int		longestSpan(void);
+
+	template <typename Iterator>
+	void	insert(Iterator first, Iterator last) {
+		int new_ins_size = std::abs(std::distance(first, last));
+
+		if (new_ins_size + this->_nums.size() > this->N)
+			throw Span::FilledSpanException();
+		this->_nums.insert(this->_nums.begin(), first, last);
+	}
 
 //	EXEPCTIONS
 	class FilledSpanException : public std::exception {

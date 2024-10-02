@@ -6,7 +6,7 @@
 
 //	SPANS
 
-int	Span::shortestSpan(void)
+unsigned int	Span::shortestSpan(void)
 {
 	if (this->_nums.size() < 2)
 		throw Span::InsufficientNumbersToSpan();
@@ -23,7 +23,7 @@ int	Span::shortestSpan(void)
 	return (min);
 }
 
-int	Span::longestSpan(void)
+unsigned int	Span::longestSpan(void)
 {
 	if (this->_nums.size() < 2)
 		throw Span::InsufficientNumbersToSpan();
@@ -42,15 +42,6 @@ void	Span::addNumber(int number)
 	this->_nums.push_back(number);
 }
 
-void	Span::insert(std::vector<int>::iterator first, std::vector<int>::iterator last)
-{
-	int new_ins_size = std::abs(std::distance(first, last));
-
-	if (new_ins_size + this->_nums.size() > this->N)
-		throw Span::FilledSpanException();
-	this->_nums.insert(this->_nums.begin(), first, last);
-}
-
 //	EXCEPTIONS
 
 const char	*Span::InsufficientNumbersToSpan::what(void) const throw()
@@ -65,7 +56,7 @@ const char	*Span::DifferentSizeSpanAssignment::what(void) const throw()
 
 const char	*Span::FilledSpanException::what(void) const throw()
 {
-	return (RED "This object is already filled" NC);
+	return (RED "Insuficient space" NC);
 }
 
 //	Constructor
